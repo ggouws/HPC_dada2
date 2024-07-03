@@ -72,6 +72,16 @@ saveRDS(fnFs.filtN, file = paste(path, "/R_objects/04_fnFs.filtN.rds" ,sep=""))
 saveRDS(fnRs.filtN, file = paste(path, "/R_objects/04_fnRs.filtN.rds" ,sep=""))
 saveRDS(out, file = paste(path, "/R_objects/04_out.rds", sep=""))
 
+## Arrange files in fnFs.filtN and fnRs.filtN in order of decending file size
+file_sizes_F <- sapply(fnFs.filtN, file.size)
+file_sizes_R <- sapply(fnRs.filtN, file.size)
+
+ordered_F <- order(file_sizes_F, decreasing = TRUE)
+ordered_R <- order(file_sizes_R, decreasing = TRUE)
+
+fnFs.filtN <- fnFs.filtN[ordered_F]
+fnRs.filtN <- fnRs.filtN[ordered_R]
+
 ## generate quality plots on the quality-trimmed data
 # write plots for inspection
 if (!is.null(opt$marker)){
