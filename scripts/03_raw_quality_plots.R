@@ -20,6 +20,16 @@ path<-getwd()
 fnFs.cut <- readRDS(file = paste(path,"/R_objects/02_fnFs.cut.rds",sep=""))
 fnRs.cut <- readRDS(file = paste(path,"/R_objects/02_fnRs.cut.rds",sep=""))
 
+## Arrange files in fnFs.cut and fnRs.cut in order of decending file size
+file_sizes_F <- sapply(fnFs.cut, file.size)
+file_sizes_R <- sapply(fnRs.cut, file.size)
+
+ordered_F <- order(file_sizes_F, decreasing = TRUE)
+ordered_R <- order(file_sizes_R, decreasing = TRUE)
+
+fnFs.cut <- fnFs.cut[ordered_F]
+fnRs.cut <- fnRs.cut[ordered_R]
+
 # extract sample names and write to R object
 sample.names <- unname(sapply(fnFs.cut, get.sample.name))
 saveRDS(sample.names, file=paste(path, "/R_objects/03_sample_names.rds", sep=""))
