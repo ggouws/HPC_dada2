@@ -438,7 +438,12 @@
 
   ```
   Once the job has run, it may take a couple of minutes for the email containing the plots
-  to arrive.
+  to arrive. The script has been altered from the [original](https://github.com/khmaher/HPC_dada2)
+  to produce quality plots for those two samples with the largest file sizes (of the two sets of
+  paired read files). These should theoretically contain the largest number of reads and provide
+  a better indication of quality compared to the original script, which plotted only the read files
+  of the first two samples in the R object.
+  
   </details>
   <br>
 
