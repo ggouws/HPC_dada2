@@ -479,7 +479,11 @@
   <b>The command line arguments you must supply are:</b><br>
   - an email address to receive a pdf of the quality plots (-E)
 
-  filterAndTrim will run using the default parameters if you don't submit any further optional parameters.
+Like the pre-trimmed quality plots, post-trimmed quality plots will be produced for the two samples with the largest file sizes 
+(i.e., potentially containing the greatest number of reads). These should be the same two samples as before unless there are 
+quality concerns and filterAndTrim removes much data from the two earlier samples.
+
+  filterAndTrim will run using the default parameters if you don't submit any further optional parameters. 
 
   <br>
   <b>Optionally, you can also supply:</b><br>
