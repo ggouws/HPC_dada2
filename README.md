@@ -423,6 +423,7 @@
   <details><summary><font size="6"><b>5.2) Removing primer sequences with filterAndTrim.</font></b></summary>
   <br>
   Occasionally, it may be necessary to remove primers based on primer length rather than using Cutadapt to identify and remove primers in various orientations in the sequence reads themselves. This may be the case where sequence quality in the primer region is poor and increasing the mismatch thresholds in Cutadapt or specifying ambiguities in the primer sequence are impractical.
+
        
 In this instance, one can use filterAndTrim and use the `--trim-left` function to remove a given length of sequence, corresponding to the length of the primers (and any remaining adapters) from start of the R1 and R2 reads, such that only the amplicon remains for further processing. The length of the primer to be removed will need to be determined beforehand, preferably from the read data directly. 
 
