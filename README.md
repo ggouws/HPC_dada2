@@ -423,8 +423,7 @@
   <details><summary><font size="6"><b>5.2) Removing primer sequences with filterAndTrim.</font></b></summary>
   <br>
   Occasionally, it may be necessary to remove primers based on primer length rather than using Cutadapt to identify and remove primers in various orientations in the sequence reads themselves. This may be the case where sequence quality in the primer region is poor and increasing the mismatch thresholds in Cutadapt or specifying ambiguities in the primer sequence are impractical.
-
-       
+<br>
 In this instance, one can use filterAndTrim and use the `--trim-left` function to remove a given length of sequence, corresponding to the length of the primers (and any remaining adapters) from start of the R1 and R2 reads, such that only the amplicon remains for further processing. The length of the primer to be removed will need to be determined beforehand, preferably from the read data directly. 
 
 This script maintains the naming conventions with respect to the file structure and the creation of the R-objects, so that the pipeline can be followed further as though Cutadapt had been run.
@@ -440,7 +439,7 @@ This script maintains the naming conventions with respect to the file structure 
   - an email address to receive notifications (-E)<br><br>
 
 ```
-  qsub scripts/02B_run_cutadapt.sh -D raw_data/ -F 27 -R 26 -E user@university.ac.uk
+  qsub scripts/02B_run_cutadapt.sh -D raw_data/ -F 26 -R 27 -E user@university.ac.uk
   ```
 
 Note: This approach is not suited for cases where multiple primers or a primer cocktail were used to create a multiplexed amplicon library, as the approach does not allow, as Cutadapt does, the extraction of only those reads where a primer was removed. All reads will be truncated with the parameters provided. Additionally, for amplicons shorter than the read length of the sequencing platform, this approach will not remove the reverse orientation of the opposite primer from the respective ends of the R1 and R2 reads.  
