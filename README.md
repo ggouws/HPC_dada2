@@ -296,7 +296,7 @@
   Download the scripts from this github repository and then copy them into your scripts folder. You can then delete the github download.
 
   ```
-  git clone "https://github.com/khmaher/HPC_dada2"
+  git clone "https://github.com/ggouws/HPC_dada2"
   cp HPC_dada2/scripts/* /fastdata/$USER/my_project/scripts
   rm -r HPC_dada2
   ```
