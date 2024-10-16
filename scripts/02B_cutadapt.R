@@ -63,4 +63,4 @@ out <- eval(parse(text = paste("filterAndTrim(fnFs.filtN, fnFs.cut, fnRs.filtN, 
 
 # Commands for sending email on completion
 email_command <- paste("echo \"", "Primer removal or sequence trimming is complete.\" | mail -s \"", "Trimming is complete.\"", opt$email, sep=" ")
-sytem(email_command)
+system(email_command)
