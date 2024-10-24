@@ -225,7 +225,7 @@
   If, for example, your data directory was called 'NBAF_project_010122', then you would
   copy it onto your raw_data directory with the following:
   ```
-  cp -r /fastdata/bo4kma_shared/NBAF_project_010122/ /fastdata/$USER/my_project/raw_data/
+  cp -r /fastdata/bi1gg_shared/NBAF_project_010122/ /fastdata/$USER/my_project/raw_data/
   ```
 
   Alternatively, to copy data from your personal computer onto the HPC you need to use a file transfer
