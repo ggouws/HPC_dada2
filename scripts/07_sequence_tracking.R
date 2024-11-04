@@ -44,13 +44,13 @@ sample.names <- unname(sapply(filtFs, get.sample.name))
 rownames(track) <- sample.names
 
 if (!is.null(opt$marker)){
-        write.table(track, file = paste(path, "/working_data/07_", opt$marker, "track_reads_table.csv", sep=""))
+        write.table(track, file = paste(path, "/working_data/07_", opt$marker, "track_reads_table.tsv", sep=""))
         email_plot_command <- paste("echo \"", opt$marker, "Track reads table\" | mail -s \"", opt$marker, "Track reads table\" -a working_data/07_", opt$marker, "track_reads_table.csv ", opt$email, sep="")
         system(email_plot_command)
 }
 
 if (is.null(opt$marker)){
-	write.table(track, file = paste(path, "/working_data/07_track_reads_table.csv", sep=""))
+	write.table(track, file = paste(path, "/working_data/07_track_reads_table.tsv", sep=""))
 	email_plot_command <- paste("echo \"Track reads table\" | mail -s \"Track reads table\" -a working_data/07_track_reads_table.csv ", opt$email, sep="")
 	system(email_plot_command)
 }
