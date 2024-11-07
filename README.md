@@ -377,7 +377,7 @@
   <details><summary><font size="6"><b>5.1) Run Cutadapt to remove primer sequences.</font></b></summary>
   <br>
   The next stage is to run Cutadapt on the data. <a href="https://cutadapt.readthedocs.io/en/stable/index.html">Cutadapt</a>
-  is a tool for finding and removing primer sequences from next-generation sequencing data. First, a scan is performed to check for primers in the data, then Cutadapt is performed, and finally a further scan occurs to check that no primers remain.
+  is a tool for finding and removing primer sequences from next-generation sequencing data. First, a scan is performed to check for primers in the data, then Cutadapt is performed, and finally a further scan occurs to check that no primers remain. If, from an initial quality assessment, you believe that there may be substantial sequencing errors in the primer region of your sequence, which may cause Cutadapt to not recognise the primer sequence, you can trim the sequences based on primer length. Should you wish to do this, proceed to __Section 5.2__.
   <br>
   Two files will be generated in the 'working_data' directory: "pre_trim_primer_counts.tsv" and post_trim_primer_counts.tsv, as well as the Cutadapt-processed sequence files in the directory 'working_data/cutadapt'.
   <br><br>
@@ -582,6 +582,12 @@ quality concerns and filterAndTrim removes much data from the two earlier sample
 
   ```
   qsub scripts/06_run_derep_dada2_merge_remove_chimeras.sh -E user@university.ac.uk
+  ```
+
+This script will produce three files. '06_ASV_seqs.fasta' will contain the amplicon sequence of each of your ASVs in fasta format. '06_ASV_counts.tsv' is a table containing the read counts for each ASV (identified by its sequence) in each sample. '06_ASV_lengths.tsv' provides the length of the amplicon for each ASV. If you are interested in the distribution of amplicon lengths, you can summarise this information with the following command:
+
+```
+  cut -f 3 working_data/06_ASV_lengths.tsv | grep -v "Length" | sort | uniq -c
   ```
 
   <br>
