@@ -82,7 +82,7 @@ if (is.null(opt$marker)){
 ## write out a table of ASV lengths
 
 sequence_lengths <- nchar(sequences)
-length_table <- table(headers, sequence_lengths)
+length_table <- data.frame(ASV = headers, Length = sequence_lengths)
 
 if (!is.null(opt$marker)){
         write.table(length_table, file = paste(path, "/working_data/06_", opt$marker, "ASV_lengths.tsv", sep=""), sep="\t", quote=F, col.names=NA)
