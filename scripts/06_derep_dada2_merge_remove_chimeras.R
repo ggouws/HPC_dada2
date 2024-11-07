@@ -81,18 +81,16 @@ if (is.null(opt$marker)){
 
 ## write out a table of ASV lengths
 
-#
-#
-#
-# 
+sequence_lengths <- nchar(sequences)
+length_table <- table(headers, sequence_lengths)
+
 if (!is.null(opt$marker)){
-        write.table(XXXtab, file = paste(path, "/working_data/06_", opt$marker, "ASV_lengths.tsv", sep=""), sep="\t", quote=F, col.names=NA)
+        write.table(length_table, file = paste(path, "/working_data/06_", opt$marker, "ASV_lengths.tsv", sep=""), sep="\t", quote=F, col.names=NA)
 }
 
 if (is.null(opt$marker)){
-	write.table(XXXtab, file = paste(path, "/working_data/06_ASV_lengths.tsv", sep=""), sep="\t", quote=F, col.names=NA)
+	write.table(length_table, file = paste(path, "/working_data/06_ASV_lengths.tsv", sep=""), sep="\t", quote=F, col.names=NA)
 }
-
 
 ## write out R objects for use later
 saveRDS(dadaFs, file = paste(path, "/R_objects/06_dadaFs.rds", sep=""))
