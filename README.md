@@ -377,7 +377,7 @@
   <details><summary><font size="6"><b>5.1) Run Cutadapt to remove primer sequences.</font></b></summary>
   <br>
   The next stage is to run Cutadapt on the data. <a href="https://cutadapt.readthedocs.io/en/stable/index.html">Cutadapt</a>
-  is a tool for finding and removing primer sequences from next-generation sequencing data. First, a scan is performed to check for primers in the data, then Cutadapt is performed, and finally a further scan occurs to check that no primers remain. If, from an initial quality assessment, you believe that there may be substantial sequencing errors in the primer region of your sequence, which may cause Cutadapt to not recognise the primer sequence, you can trim the sequences based on primer length. Should you wish to do this, proceed to __Section 5.2__.
+  is a tool for finding and removing primer sequences from next-generation sequencing data. First, a scan is performed to check for primers in the data, then Cutadapt is performed, and finally a further scan occurs to check that no primers remain. If, from an initial quality assessment, you believe that there may be substantial sequencing errors in the primer region of your sequence, which may cause Cutadapt to not recognise the primer sequence, you can trim the sequences based on primer length. Should you wish to do this, proceed to <b>Section 5.2</b>.<br>
   <br>
   Two files will be generated in the 'working_data' directory: "pre_trim_primer_counts.tsv" and post_trim_primer_counts.tsv, as well as the Cutadapt-processed sequence files in the directory 'working_data/cutadapt'.
   <br><br>
@@ -425,7 +425,7 @@
   Occasionally, it may be necessary to remove primers based on primer length rather than using Cutadapt to identify and remove primers in various orientations in the sequence reads themselves. This may be the case where sequence quality in the primer region is poor and increasing the mismatch thresholds in Cutadapt or specifying ambiguities in the primer sequence are impractical.
 <br>
 In this instance, one can use filterAndTrim and use the `--trim-left` function to remove a given length of sequence, corresponding to the length of the primers (and any remaining adapters) from start of the R1 and R2 reads, such that only the amplicon remains for further processing. The length of the primer to be removed will need to be determined beforehand, preferably from the read data directly. 
-
+<br>
 This script maintains the naming conventions with respect to the file structure and the creation of the R-objects, so that the pipeline can be followed further as though Cutadapt had been run.
 
   To remove primer sequences from the files using filterAndTrim, submit the '02B_run_cutadapt.sh' script, as shown below.
