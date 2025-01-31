@@ -20,11 +20,6 @@ path<-getwd()
 filtFs <- readRDS(file = paste(path, "/R_objects/04_fnFs.filtN.rds", sep=""))
 filtRs <- readRDS(file = paste(path, "/R_objects/04_fnRs.filtN.rds", sep=""))
 
-#### Temporary fix for Maya and test of beetle diet - delete afterwards
-#### extract sample names and write to R object
-sample.names <- unname(sapply(filtFS, get.sample.name))
-saveRDS(sample.names, file=paste(path, "/R_objects/03_sample_names.rds", sep=""))
-
 ## read in the error models
 errF <- readRDS(file = paste(path, "/R_objects/05_errF.rds", sep=""))
 errR <- readRDS(file = paste(path, "/R_objects/05_errR.rds", sep=""))
