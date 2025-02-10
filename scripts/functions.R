@@ -24,8 +24,12 @@ guess_file_extension<-function(input_directory){
   return(extensions)
 }
 
-# Extract sample names
+# Extract sample names (second number refers to the section to retain as name)
 get.sample.name <- function(fname) strsplit(basename(fname), "_")[[1]][2]
+
+## Option for extracting and compiling longer sample names when these are multiple file name sections
+## get.sample.name <- function(fname) paste(strsplit(basename(fname), "-|_")[[1]][3],
+##	strsplit(basename(fname), "-|_")[[1]][4], sep = "_")
 
 ## calc reads for tracking table
 getN <- function(x) sum(getUniques(x))
