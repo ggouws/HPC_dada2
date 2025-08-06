@@ -24,6 +24,9 @@ mergers	<- readRDS(file = paste(path, "/R_objects/06_mergers.rds", sep=""))
 seqtab.nochim <- readRDS(file = paste(path, "/R_objects/06_seqtab.nochim.rds", sep=""))
 filtFs <- readRDS(file = paste(path, "/R_objects/04_fnFs.filtN.rds", sep=""))
 
+## Subset 'out' to include only rows/samples for which files exist in 'filtFs'
+out <- out[file.exists(filtFs),]
+
 track <- cbind(
 	out[,1],
 	out[,2],
@@ -39,8 +42,9 @@ colnames(track) <- c(
 	"merged",
 	"nochim")
 
-# get sample names
+# get sample names (filter 'sample.names' to include only those for which 'filtFs' files exist)
 sample.names <- unname(sapply(filtFs, get.sample.name))
+sample.names <- sample.names[file.exists(filtFs)]
 rownames(track) <- sample.names
 
 if (!is.null(opt$marker)){
