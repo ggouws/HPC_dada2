@@ -5,9 +5,6 @@
     alt="NEOF Icon"
     style="left; margin-right: 10px;" />
 <br>
-*NOTE* Scripts have been updated for use on the University of Sheffield's Stanage HPC. The READ.ME is yet to be 
-updated. Please submit jobs with `sbatch` instead of `qsub`. Instructions for accessing the Genomics software
-repository, creating bash/conda profiles and directories on '/mnt/parscratch/users/` will be updated soon.
 <br>
 ## Dada2 Workflow using UoS BESSEMER.
 <br>
