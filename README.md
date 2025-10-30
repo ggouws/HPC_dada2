@@ -23,8 +23,8 @@ repository, creating bash/conda profiles and directories on '/mnt/parscratch/use
   to allow it to be easily run on a remote HPC system.
 
   Whilst it has been written for use with The University of Sheffield's
-  [BESSEMER](https://docs.hpc.shef.ac.uk/en/latest/bessemer/index.html) system,
-  the below should be applicable to any GNU/Linux based HPC system, with
+  [Stanage](https://docs.hpc.shef.ac.uk/en/latest/stanage/index.html#gsc.tab=0)
+  system, the below should be applicable to any GNU/Linux based HPC system, with
   appropriate modification (your mileage may vary).
 
   Code which the user (that's you) must run is highlighted in a code block like this:
@@ -42,7 +42,8 @@ repository, creating bash/conda profiles and directories on '/mnt/parscratch/use
 
   '/home/user/a_file_path'
   <br><br>
-  Contact: Katy Maher //  kathryn.maher@sheffield.ac.uk
+  Contact: Katy Maher (maintains original GitHub repo) //  kathryn.maher@sheffield.ac.uk 
+  Gavin Gouws (maintains this modified forked version) // g.gouws@sheffield.ac.uk                    
   </details>
 <br>
 <details><summary><font size="6"><b>2) Getting started on the HPC.</b></font></summary>
@@ -50,7 +51,7 @@ repository, creating bash/conda profiles and directories on '/mnt/parscratch/use
   <br>
   <font size="4"><b>2.1) Access the HPC</b></font>
   <br>
-  To access the BESSEMER high-performance computer (HPC) you must be connected
+  To access the Stanage high-performance computer (HPC) you must be connected
   to the university network - this can be achieved remotely by using the
   virtual private network (VPN) service.
 
@@ -63,9 +64,9 @@ repository, creating bash/conda profiles and directories on '/mnt/parscratch/use
   [See the university pages for guidance on how to connect to the VPN](https://docs.hpc.shef.ac.uk/en/latest/hpc/index.html).
 
   <br>
-  <font size="4"><b>2.2) Access a worker node on BESSEMER</b></font>
+  <font size="4"><b>2.2) Access a worker node on Stanage</b></font>
   <br>
-  Once you have successfully logged into BESSEMER, you need to access a worker node:
+  Once you have successfully logged into Stanage, you need to access a worker node:
 
   ```
   srun --pty bash -l
@@ -73,11 +74,11 @@ repository, creating bash/conda profiles and directories on '/mnt/parscratch/use
   You should see that the command prompt has changed from
 
   ```
-  [<user>@bessemer-login2 ~]$
+  [<user>@login2 [stanage] ~]$
   ```
   to
   ```
-  [<user>@bessemer-node001 ~]$
+  [<user>@node001 [stanage] ~]$
   ```
   ...where \<user\> is your The University of Sheffield (TUoS) IT username.
 
@@ -101,8 +102,9 @@ repository, creating bash/conda profiles and directories on '/mnt/parscratch/use
   If so, you are set up and do not need to do the following step.
   If not, enter the following:
   ```
-  echo -e "if [[ -e '/usr/local/extras/Genomics' ]];\nthen\n\tsource /usr/local/extras/Genomics/.bashrc\nfi" >> $HOME/.bash_profile
-  ```
+   echo -e "if [[ -e '/mnt/community/Genomics' ]];\nthen\n\tsource /mnt/community/Genomics/.bashrc\nfi" >>
+$HOME/.bash_profile
+```
   ...and then re-load your profile:
   ```
   source ~/.bash_profile
@@ -113,13 +115,13 @@ repository, creating bash/conda profiles and directories on '/mnt/parscratch/use
   <br>
   <font size="4"><b>2.4) Set up your conda profile</b></font>
   <br>
-  If you have never run conda before on the Bessemer you might have to initialise your conda, to do this type:
+  If you have never run conda before on Stanage you might have to initialise your conda, to do this type:
   
   ```
   conda init bash
   ```
   
-  You will then be asked to reopen your current shell. Log out and then back into Bessemer and then continue. 
+  You will then be asked to reopen your current shell. Log out and then back into Stanage and then continue. 
   <br>
   
   <font size="4"><b>2.5) Running scripts on the HPC cluster</b></font>
@@ -141,12 +143,12 @@ repository, creating bash/conda profiles and directories on '/mnt/parscratch/use
   scripts/01_remove_Ns.R  scripts/01_run_remove_Ns.sh
   ```
 
-  To add our 'remove Ns' job to the job scheduler, we would submit the shell script using 'qsub'
+  To add our 'remove Ns' job to the job scheduler, we would submit the shell script using 'sbatch'
   (don't do this yet, simply an example).
 
   ```
   ## EXAMPLE, DON'T RUN
-  qsub scripts/01_run_remove_Ns.sh
+  sbatch scripts/01_run_remove_Ns.sh
   ```
 
   We could then view the job that we have submitted to the job queue using 'squeue'.
@@ -182,32 +184,32 @@ repository, creating bash/conda profiles and directories on '/mnt/parscratch/use
   <br>
   <font size="4"><b>3.1) Create a working directory and load your data</b></font>
   <br>
-  You should work in the directory '/fastdata' on BESSEMER as this allows shared access to your files
+  You should work in the directory '/mnt/parscratch/users/' on BESSEMER as this allows shared access to your files
   and commands, useful for troubleshooting.
 
-  Check if you already have a directory in '/fastdata' by running the command exactly as it appears below.
+  Check if you already have a directory in '/mnt/parscratch/users/' by running the command exactly as it appears below.
 
   ```
-  ls /fastdata/$USER
+  ls /mnt/parscratch/users/$USER
   ```
 
   If you receive the message
   ```
-  ls: cannot access /fastdata/<user>: No such file or directory
+  ls: cannot access /mnt/parscratch/users/<user>: No such file or directory
   ```
-  Then you need to create a new folder in '/fastdata' using the command exactly as it appears below:
+  Then you need to create a new folder in '/mnt/parscratch/users/' using the command exactly as it appears below:
 
   ```
-  mkdir -m 0755 /fastdata/$USER
+  mkdir -m 0755 /mnt/parscratch/users/$USER
   ```
 
   Create new subdirectories to keep your scripts, data files, and R objects organised:
   ```
-  mkdir /fastdata/$USER/my_project
-  mkdir /fastdata/$USER/my_project/scripts
-  mkdir /fastdata/$USER/my_project/raw_data
-  mkdir /fastdata/$USER/my_project/working_data
-  mkdir /fastdata/$USER/my_project/R_objects
+  mkdir /mnt/parscratch/users/$USER/my_project
+  mkdir /mnt/parscratch/users/$USER/my_project/scripts
+  mkdir /mnt/parscratch/users/$USER/my_project/raw_data
+  mkdir /mnt/parscratch/users/$USER/my_project/working_data
+  mkdir /mnt/parscratch/users/$USER/my_project/R_objects
   ```
   <br>
   <font size="4"><b>3.2) Required data inputs</b></font>
@@ -228,12 +230,12 @@ repository, creating bash/conda profiles and directories on '/mnt/parscratch/use
   If, for example, your data directory was called 'NBAF_project_010122', then you would
   copy it onto your raw_data directory with the following:
   ```
-  cp -r /fastdata/bi1gg_shared/NBAF_project_010122/ /fastdata/$USER/my_project/raw_data/
+  cp /mnt/parscratch/users/bi1gg_shared/NBAF_project_010122/* /mnt/parscratch/users/$USER/my_project/raw_data/
   ```
 
   Alternatively, to copy data from your personal computer onto the HPC you need to use a file transfer
   application such as 'scp' (advanced), MobaXterm, or [FileZilla](https://filezilla-project.org/).
-  Ensure to copy the data into your '/fastdata/<user>my_project/raw_data folder'.
+  Ensure to copy the data into your '/mnt/parscratch/users/<user>/my_project/raw_data' folder.
 
   Run 'ls' on your 'raw_data' folder and you should see something like the following
   ```
@@ -249,7 +251,7 @@ repository, creating bash/conda profiles and directories on '/mnt/parscratch/use
 
   <font size="4"><b>3.4) Data file naming convention</b></font>
   <br>
-  The workflow assumes that the '/fastdata/<user>my_project/raw_data' directory contains sequence data that is:
+  The workflow assumes that the '/mnt/parscratch/users/<user>/my_project/raw_data' directory contains sequence data that is:
 
   * Paired (two files per biological sample)
 
@@ -296,12 +298,13 @@ repository, creating bash/conda profiles and directories on '/mnt/parscratch/use
   <br>
   <b><font size="4">3.6) Copy the dada2 R scripts</b></font>
   <br>
-  Download the scripts from this github repository and then copy them into your scripts folder. You can then delete the github download.
+  Download the scripts from this github repository and then copy them into your scripts folder. 
+  You can then delete the github download.
 
   ```
   git clone "https://github.com/ggouws/HPC_dada2"
-  cp HPC_dada2/scripts/* /fastdata/$USER/my_project/scripts
-  rm -r HPC_dada2
+  cp HPC_dada2/scripts/* /mnt/parscratch/users/$USER/my_project/scripts/
+  rm -rf HPC_dada2
   ```
   <br>
   </details>
@@ -315,7 +318,7 @@ repository, creating bash/conda profiles and directories on '/mnt/parscratch/use
 
   * you are in the 'my_project' directory
 
-  * you have the 'raw_data', 'scripts', 'working_data', and 'R objects' directories present
+  * you have the 'raw_data', 'scripts', 'working_data', and 'R_objects' directories present
 
   * the 'raw_data' directory contains your sequence files
 
@@ -323,7 +326,8 @@ repository, creating bash/conda profiles and directories on '/mnt/parscratch/use
 
   ```
   pwd
-  # /fastdata/$USER/my_project
+  # /mnt/parscratch/users/$USER/my_project
+  
 
   ls
   # raw_data  scripts   working_data  R_objects
@@ -344,17 +348,17 @@ repository, creating bash/conda profiles and directories on '/mnt/parscratch/use
   You should also be able to load the R environment without seeing any error messages:
   ```
   source ~/.bash_profile
-  conda activate /usr/local/extras/Genomics/apps/mambaforge/envs/metabarcoding
+  conda activate /mnt/community/Genomics/apps/miniforge/miniforge3/envs/metabarcoding
   ```
   
-  You should see the environment "metabarcoding" at the start of your terminal prompt, e.g. `(metabarcoding) [USERNAME@bessemer-node001]` 
+  You should see the environment "metabarcoding" at the start of your terminal prompt, e.g. `(metabarcoding) [USERNAME@node001 [stanage] ]` 
   <br>
   If any of this is missing, go back to section 3 above and double check everything.
   <br>
   <br>
   <font size="4"><b>4.2 Remove reads with Ns</b></font>
   <br>
-  Dada2 requires reads which do not contain any N characters. An N may be introduced
+  DADA2 requires reads which do not contain any N characters. An N may be introduced
   into a sequence read when the sequencing software is unable to confidently basecall
   that position. This will likely be a small proportion of the sequence reads in the input
   files.
@@ -372,7 +376,7 @@ repository, creating bash/conda profiles and directories on '/mnt/parscratch/use
   <br><br>
 
   ```
-  qsub scripts/01_run_remove_Ns.sh -D raw_data/ -E user@university.ac.uk
+  sbatch scripts/01_run_remove_Ns.sh -D raw_data/ -E user@university.ac.uk
 
   ```
   </details>
@@ -382,7 +386,8 @@ repository, creating bash/conda profiles and directories on '/mnt/parscratch/use
   The next stage is to run Cutadapt on the data. <a href="https://cutadapt.readthedocs.io/en/stable/index.html">Cutadapt</a>
   is a tool for finding and removing primer sequences from next-generation sequencing data. First, a scan is performed to check for primers in the data, then Cutadapt is performed, and finally a further scan occurs to check that no primers remain. If, from an initial quality assessment, you believe that there may be substantial sequencing errors in the primer region of your sequence, which may cause Cutadapt to not recognise the primer sequence, you can trim the sequences based on primer length. Should you wish to do this, proceed to <b>Section 5.2</b>.<br>
   <br>
-  Two files will be generated in the 'working_data' directory: "pre_trim_primer_counts.tsv" and post_trim_primer_counts.tsv, as well as the Cutadapt-processed sequence files in the directory 'working_data/cutadapt'.
+  Two files will be generated in the 'working_data' directory: "02_pre_trim_primer_counts.tsv" and "02_post_trim_primer_counts.tsv", 
+as well as the Cutadapt-processed sequence files in the directory 'working_data/cutadapt'.
   <br><br>
   To run cutadapt on the files, submit the '02_run_cutadapt.sh' script as shown below
   <br><br>
@@ -406,7 +411,7 @@ repository, creating bash/conda profiles and directories on '/mnt/parscratch/use
   An example command is given below but you will need to replace the primer sequences with those suitable for your data.
 
   ```
-  qsub scripts/02_run_cutadapt.sh -D raw_data/ -F CCTACGGGNGGCWGCAG -R GACTACHVGGGTATCTAATCC -M 10 -N 2 -E user@university.ac.uk
+  sbatch scripts/02_run_cutadapt.sh -D raw_data/ -F CCTACGGGNGGCWGCAG -R GACTACHVGGGTATCTAATCC -M 10 -N 2 -E user@university.ac.uk
   ```
 
   Once Cutadapt has run you can check that it has successfull removed all the primer sequences from your reads.<br>
@@ -425,7 +430,7 @@ repository, creating bash/conda profiles and directories on '/mnt/parscratch/use
   <br>
   <details><summary><font size="6"><b>5.2) Removing primer sequences with filterAndTrim.</font></b></summary>
   <br>
-  Occasionally, it may be necessary to remove primers based on primer length rather than using Cutadapt to identify and remove primers in various orientations in the sequence reads themselves. This may be the case where sequence quality in the primer region is poor and increasing the mismatch thresholds in Cutadapt or specifying ambiguities in the primer sequence are impractical.
+  Rarely, it may be necessary to remove primers based on primer length rather than using Cutadapt to identify and remove primers in various orientations in the sequence reads themselves. This may be the case where sequence quality in the primer region is poor and increasing the mismatch thresholds in Cutadapt or specifying ambiguities in the primer sequence are impractical.
 <br>
 In this instance, one can use filterAndTrim and use the `--trim-left` function to remove a given length of sequence, corresponding to the length of the primers (and any remaining adapters) from start of the R1 and R2 reads, such that only the amplicon remains for further processing. The length of the primer to be removed will need to be determined beforehand, preferably from the read data directly. 
 <br>
@@ -442,7 +447,7 @@ This script maintains the naming conventions with respect to the file structure 
   - an email address to receive notifications (-E)<br><br>
 
 ```
-  qsub scripts/02B_run_cutadapt.sh -D raw_data/ -F 26 -R 27 -E user@university.ac.uk
+  sbatch scripts/02B_run_cutadapt.sh -D raw_data/ -F 26 -R 27 -E user@university.ac.uk
   ```
 
 Note: This approach is not suited for cases where multiple primers or a primer cocktail were used to create a multiplexed amplicon library, as the approach does not allow, as Cutadapt does, the extraction of only those reads where a primer was removed. All reads will be truncated with the parameters provided. Additionally, for amplicons shorter than the read length of the sequencing platform, this approach will not remove the reverse orientation of the opposite primer from the respective ends of the R1 and R2 reads.  
@@ -463,7 +468,7 @@ Note: This approach is not suited for cases where multiple primers or a primer c
   - an email address to receive a pdf of the quality plots (-E)
 
   ```
-  qsub scripts/03_run_raw_quality_plots.sh -E user@university.ac.uk
+  sbatch scripts/03_run_raw_quality_plots.sh -E user@university.ac.uk
 
   ```
   Once the job has run, it may take a couple of minutes for the email containing the plots
@@ -483,7 +488,7 @@ Note: This approach is not suited for cases where multiple primers or a primer c
   <br>
   You will likely notice that the quality scores
   decrease as the position in the read increases. You should determine a position in
-  the read (I.e. a position on the x-axis) where the reads should be truncated. This
+  the read (i.e. a position on the x-axis) where the reads should be truncated. This
   will remove the lower quality data to the right of that position. The R1 and R2
   reads may need a different truncation value (often R2 needs to truncated to a
   shorter length).
@@ -540,10 +545,10 @@ quality concerns and filterAndTrim removes much data from the two earlier sample
   Submit the filterAndTrim job to the job scheduler, along the command line arguments with something similar to the following:
 
   ```
-  qsub scripts/04_run_filterAndTrim.sh -T 240 -S 220 -G 2 -H 2 -Q 2 -L 50 -E user@university.ac.uk
+  sbatch scripts/04_run_filterAndTrim.sh -T 240 -S 220 -G 2 -H 2 -Q 2 -L 50 -E user@university.ac.uk
 
   ## to filterAndTrim just a small subset of samples, set -U as TRUE:
-  qsub scripts/04_run_filterAndTrim.sh -T 240 -S 220 -G 2 -H 2 -Q 2 -L 50 -U TRUE -E user@university.ac.uk
+  sbatch scripts/04_run_filterAndTrim.sh -T 240 -S 220 -G 2 -H 2 -Q 2 -L 50 -U TRUE -E user@university.ac.uk
   ```
   <br>
   </details>
@@ -560,7 +565,7 @@ quality concerns and filterAndTrim removes much data from the two earlier sample
   - an email address to receive a pdf of the error model plots (-E)
 
   ```
-  qsub scripts/05_run_generate_error_model.sh -E user@university.ac.uk
+  sbatch scripts/05_run_generate_error_model.sh -E user@university.ac.uk
   ```
 
   The data in the plots show the error rates for the possible type of transition (A being mis-detected as T, G being mis-detected as C, etc.).
@@ -584,7 +589,7 @@ quality concerns and filterAndTrim removes much data from the two earlier sample
   - an email address to receive notifications (-E) <br>
 
   ```
-  qsub scripts/06_run_derep_dada2_merge_remove_chimeras.sh -E user@university.ac.uk
+  sbatch scripts/06_run_derep_dada2_merge_remove_chimeras.sh -E user@university.ac.uk
   ```
 
 This script will produce three files. '06_ASV_seqs.fasta' will contain the amplicon sequence of each of your ASVs in fasta format. '06_ASV_counts.tsv' is a table containing the read counts for each ASV (identified by its sequence) in each sample. '06_ASV_lengths.tsv' provides the length of the amplicon for each ASV. If you are interested in the distribution of amplicon lengths, you can summarise this information with the following command:
@@ -606,7 +611,7 @@ This script will produce three files. '06_ASV_seqs.fasta' will contain the ampli
   - an email address to receive the read tracking table (-E)
 
   ```
-  qsub scripts/07_run_sequence_tracking.sh -E user@university.ac.uk
+  sbatch scripts/07_run_sequence_tracking.sh -E user@university.ac.uk
   ```  
 
   </details>
@@ -623,7 +628,7 @@ This script will produce three files. '06_ASV_seqs.fasta' will contain the ampli
   - an email address to the taxonomic assignments (-E) <br>
 
   ```
-  qsub scripts/08_run_assign_taxonomy.sh -B /fastdata/bi1xgf/16S_databases/dada2_formatted_dbs/gg_13_5_dada_fmt.fa -E user@university.ac.uk
+  sbatch scripts/08_run_assign_taxonomy.sh -B /shared/genomicsdb2/shared/silva/current/ -E user@university.ac.uk
 
   ```  
   </details>
@@ -656,7 +661,7 @@ This script will produce three files. '06_ASV_seqs.fasta' will contain the ampli
   Run the '00_run_full_pipeline.sh' script:
 
   ```
-  qsub scripts/00_run_full_pipeline.sh -D raw_data/ -E user@university.ac.uk -F AGGTCTAGTA -R GTGATGCTAG -D my_ref_database.fa
+  sbatch scripts/00_run_full_pipeline.sh -D raw_data/ -E user@university.ac.uk -F AGGTCTAGTA -R GTGATGCTAG -D my_ref_database.fa
   ```
   </details>
   </font>
