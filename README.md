@@ -6,7 +6,7 @@
     style="left; margin-right: 10px;" />
 <br>
 <br>
-## Dada2 Workflow using UoS BESSEMER.
+## Dada2 Workflow using UoS Stanage.
 <br>
 <font size="4">
 <details><summary><font size="6"><b>1) About, credits, and other information</b></font></summary>
