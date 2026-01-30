@@ -6,7 +6,11 @@ option_list = list(
   make_option(c("-E", "--email"), type="character", default=FALSE,
               help="Provide an email address to receive an email notification when the job has finished.", metavar="character"),
   make_option(c("-C", "--marker"), type="character", default=NULL,
-              help="OPTIONAL - give the marker name adn the plot will include this info. Useful if processing multiple markers", metavar="character")  
+              help="OPTIONAL - give the marker name and the plot will include this info. Useful if processing multiple markers", metavar="character"),
+  make_option(c("-M", "--minimum"), type="integer", default=0,
+              help="Minimum ASV length cutoff", metavar="character"),
+  make_option(c("-L", "--maximum"), type="integer", default=1000,
+              help="Maximum ASV length cutoff", metavar="character")
 )
 
 ## Parse arguments
@@ -48,8 +52,18 @@ mergers <- mergePairs(dadaFs, derepFs, dadaRs, derepRs, verbose=TRUE)
 ## make ASV table
 seqtab <- makeSequenceTable(mergers)
 
+## check the range of ASV lengths
+table(nchar(getSequences(seqtab)))
+
+## Create a numeric sequence from the minimum and maximum arguments
+## This will be the set of valid ASV lengths
+valid_lengths <- seq(opt$minimum, opt$maximum)
+
+## remove non-target-length ASVs from your sequence table
+seqtab.len <- seqtab[, nchar(colnames(seqtab)) %in% valid_lengths]
+
 ## remove chimeras
-seqtab.nochim <- removeBimeraDenovo(seqtab, method="consensus", multithread=TRUE, verbose=TRUE)
+seqtab.nochim <- removeBimeraDenovo(seqtab.len, method="consensus", multithread=TRUE, verbose=TRUE)
 
 ## write out ASV sequences
 sequences <- colnames(seqtab.nochim)
