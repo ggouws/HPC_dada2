@@ -6,8 +6,6 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=2
-#SBATCH -A molecolb
-#SBATCH -p molecolb
 #SBATCH --mem-per-cpu=8GB
 #SBATCH --time=48:00:00
 
@@ -95,7 +93,7 @@ fi
 
 # load R
 source ~/.bash_profile
-conda activate /usr/local/extras/Genomics/apps/mambaforge/envs/metabarcoding
+conda activate metabarcoding
 
 # Remove Ns
 ## build up arg string to pass to R script
@@ -122,8 +120,6 @@ if [ "$email" ]; then ARGS="$ARGS -E $email"; fi
 if [ "$marker" ]; then ARGS="$ARGS -C $marker"; fi
 
 ## load R and call Rscript
-source ~/.bash_profile
-conda activate cutadapt
 Rscript $PWD/scripts/02_cutadapt.R $ARGS
 
 ######################################################
