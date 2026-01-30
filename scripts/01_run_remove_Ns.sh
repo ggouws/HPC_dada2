@@ -1,4 +1,4 @@
-#!/bin/bash
+b#!/bin/bash
 
 #SBATCH --job-name=01_remove_Ns
 #SBATCH --output=01_remove_Ns.log
@@ -47,6 +47,6 @@ if [ "$marker" ]; then ARGS="$ARGS -C $marker"; fi
 
 ## load R and call Rscript
 source ~/.bash_profile
-conda activate /mnt/community/Genomics/apps/miniforge/miniforge3/envs/metabarcoding
+conda activate metabarcoding
 echo $ARGS
 Rscript $PWD/scripts/01_remove_Ns.R $ARGS 
