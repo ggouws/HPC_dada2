@@ -40,5 +40,5 @@ if [ "$email" ]; then ARGS="$ARGS -E $email"; fi
 
 ## load R and call Rscript
 source ~/.bash_profile
-conda activate /usr/local/extras/Genomics/apps/mambaforge/envs/metabarcoding
+conda activate metabarcoding
 Rscript $PWD/scripts/02B_cutadapt.R $ARGS
