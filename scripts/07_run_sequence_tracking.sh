@@ -24,5 +24,5 @@ if [ "$marker" ]; then ARGS="$ARGS -C $marker"; fi
 
 ## load R and call Rscript
 source ~/.bash_profile
-conda activate /mnt/community/Genomics/apps/miniforge/miniforge3/envs/metabarcoding
+conda activate metabarcoding
 Rscript $PWD/scripts/07_sequence_tracking.R $ARGS
