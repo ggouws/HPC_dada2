@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #SBATCH --job-name=06_derep_dada2_merge_remove_chimeras
-#SBATCH --output=06_derep_dada2_,erge_remove_chimeras.log
+#SBATCH --output=06_derep_dada2_merge_remove_chimeras.log
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=2
@@ -9,11 +9,13 @@
 #SBATCH --time=24:00:00
 
 ## parse arguments
-while getopts E:C: flag
+while getopts E:C:M:L: flag
 do
 	case "${flag}" in
 		E) email=${OPTARG};;
 		C) marker=${OPTARG};;
+		M) minimum=${OPTARG};;
+		L) maximum=${OPTARG};;
 	esac
 done
 
@@ -21,10 +23,12 @@ done
 ARGS=""
 if [ "$email" ]; then ARGS="$ARGS -E $email"; fi
 if [ "$marker" ]; then ARGS="$ARGS -C $marker"; fi
+if [ "$minimum" ]; then ARGS="$ARGS -M $minimum"; fi
+if [ "$maximum" ]; then ARGS="$ARGS -L $maximum"; fi
 
 ## load R and call Rscript
 source ~/.bash_profile
-conda activate /mnt/community/Genomics/apps/miniforge/miniforge3/envs/metabarcoding
+conda activate /usr/local/extras/Genomics/apps/mambaforge/envs/metabarcoding
 Rscript $PWD/scripts/06_derep_dada2_merge_remove_chimeras.R $ARGS
 
  
