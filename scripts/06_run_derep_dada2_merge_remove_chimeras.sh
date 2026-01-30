@@ -28,7 +28,7 @@ if [ "$maximum" ]; then ARGS="$ARGS -L $maximum"; fi
 
 ## load R and call Rscript
 source ~/.bash_profile
-conda activate /usr/local/extras/Genomics/apps/mambaforge/envs/metabarcoding
+conda activate metabarcoding
 Rscript $PWD/scripts/06_derep_dada2_merge_remove_chimeras.R $ARGS
 
  
