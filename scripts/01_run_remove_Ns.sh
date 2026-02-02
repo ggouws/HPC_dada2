@@ -50,3 +50,9 @@ source ~/.bash_profile
 conda activate metabarcoding
 echo $ARGS
 Rscript $PWD/scripts/01_remove_Ns.R $ARGS 
+
+## Generate a files of raw read counts and counts after Ns have been removed
+cd $src/raw_data
+for file in *R1*.fastq.gz; do echo -en $file "\t"; echo "$(zcat $file| wc -l)"/4 | bc; done > $src/working_data/01_raw_read_counts.txt
+cd $src/working_data/filtN
+for file in *R1*.fastq.gz; do echo -en $file "\t"; echo "$(zcat $file| wc -l)"/4 | bc; done > $src/working_data/01_filtN_read_counts.txt
