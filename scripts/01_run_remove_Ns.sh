@@ -1,4 +1,4 @@
-b#!/bin/bash
+#!/bin/bash
 
 #SBATCH --job-name=01_remove_Ns
 #SBATCH --output=01_remove_Ns.log
