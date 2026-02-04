@@ -358,7 +358,8 @@ $HOME/.bash_profile
   DADA2 requires reads which do not contain any N characters. An N may be introduced
   into a sequence read when the sequencing software is unable to confidently basecall
   that position. This will likely be a small proportion of the sequence reads in the input
-  files.
+  files. This script will also produce two files in the 'working_data' directory, "01_raw_read_counts.tsv"
+  and "01_filtN_read_counts.tsv", should you need to compare and report these read counts.
 
   <br><br>
   To perform the N removal, submit the '01_run_remove_Ns.sh' script as shown below.
